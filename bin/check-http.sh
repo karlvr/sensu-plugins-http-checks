@@ -69,7 +69,7 @@ ARGS=
 if [ "x$REDIRECTOK" != "xtrue" ]; then
 	ARGS="$ARGS --max-redirect 0"
 fi
-if [ "x$NO_SSL_CHECK" != "xtrue" ]; then
+if [ "x$NO_SSL_CHECK" == "xtrue" ]; then
 	# We can get a redirect to https and it may be that we don't care about validating the certificate there, such
 	# as if we're requesting an IP address or a hostname for which there isn't a valid certificate.
 	ARGS="$ARGS --no-check-certificate"
