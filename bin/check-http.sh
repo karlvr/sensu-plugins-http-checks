@@ -76,7 +76,11 @@ if [ "x$NO_SSL_CHECK" != "xtrue" ]; then
 fi
 ARGS="$ARGS -nv -O- $URL"
 
-ERROR_LOG=`mktemp $TMPDIR/check-http.XXXXXXXXXX.tmp`
+if [ -n "${TMPDIR:-}" ]; then
+	ERROR_LOG=`mktemp $TMPDIR/check-http.XXXXXXXXXX.tmp`
+else
+	ERROR_LOG=`mktemp --tmpdir check-http.XXXXXXXXXX.tmp`
+fi
 
 OUTPUT=$(eval $WGET $ARGS 2>"$ERROR_LOG")
 STATUS=$?
