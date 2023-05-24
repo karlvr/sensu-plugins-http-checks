@@ -28,8 +28,9 @@ set -u
 URL=
 PATTERN=
 REDIRECTOK=
+NO_SSL_CHECK=
 
-while getopts ":u:q:r" opt; do
+while getopts ":u:q:rs" opt; do
   case $opt in
 	u)
 	  URL="$OPTARG"
@@ -39,6 +40,9 @@ while getopts ":u:q:r" opt; do
 	  ;;
 	r)
 	  REDIRECTOK="true"
+	  ;;
+	s)
+	  NO_SSL_CHECK="true"
 	  ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -64,6 +68,11 @@ ARGS=
 
 if [ "x$REDIRECTOK" != "xtrue" ]; then
 	ARGS="$ARGS --max-redirect 0"
+fi
+if [ "x$NO_SSL_CHECK" != "xtrue" ]; then
+	# We can get a redirect to https and it may be that we don't care about validating the certificate there, such
+	# as if we're requesting an IP address or a hostname for which there isn't a valid certificate.
+	ARGS="$ARGS --no-check-certificate"
 fi
 ARGS="$ARGS -nv -O- $URL"
 
