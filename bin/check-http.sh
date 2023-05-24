@@ -52,6 +52,13 @@ if [ "x$URL" == "x" ]; then
 fi
 
 WGET=/usr/bin/wget
+if [ ! -x "$WGET" ]; then
+	WGET=/usr/local/bin/wget
+fi
+if [ ! -x "$WGET" ]; then
+	echo "wget not found" >&2
+	exit 1
+fi
 
 ARGS=
 
