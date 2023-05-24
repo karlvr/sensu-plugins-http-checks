@@ -67,7 +67,7 @@ if [ "x$REDIRECTOK" != "xtrue" ]; then
 fi
 ARGS="$ARGS -nv -O- $URL"
 
-ERROR_LOG=`mktemp --tmpdir check-http.XXXXXXXXXX.tmp`
+ERROR_LOG=`mktemp $TMPDIR/check-http.XXXXXXXXXX.tmp`
 
 OUTPUT=$(eval $WGET $ARGS 2>"$ERROR_LOG")
 STATUS=$?
