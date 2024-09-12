@@ -1,6 +1,6 @@
-#!/bin/bash
-
-set -u
+#!/bin/bash -u
+#
+# Check that an SSL connection can be established and optionally check the certificate expiry
 
 HOST=
 PORT=443
